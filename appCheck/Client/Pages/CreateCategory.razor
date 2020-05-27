@@ -1,0 +1,32 @@
+﻿@page "/category"
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>CreateCategory</h3>
+
+<EditForm Model="@category" OnValidSubmit="@CreateNewCategory">
+    <!-- для проверки тэга [Required] в классе Publication -->
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@category.name" />
+            <ValidationMessage For="@(() => @category.name)" />
+        </div>
+    </div>
+    <button type="submit">Create Category</button>
+</EditForm>
+
+
+@code {
+    Category category = new Category();
+
+    async Task CreateNewCategory()
+    {
+        await Http.PostJsonAsync("category/Create", category);
+        NavManager.NavigateTo("/");
+    }
+}

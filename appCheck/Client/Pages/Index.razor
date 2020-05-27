@@ -1,0 +1,51 @@
+﻿@page "/"
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject HttpClient Http
+
+<h1>list</h1>
+
+<ul>
+    @if (publications != null)
+    {
+        @foreach (var publication in publications)
+        {
+            @if (publication.isAllowed)
+            {
+                <li>@publication.text</li>
+            }
+        }
+    }
+    else
+    {
+        <h1>publications - null</h1>
+    }
+</ul>
+
+
+@code {
+
+    Publication[] publications;
+    Category[] categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync method");
+
+        await LoadPublications();
+        StateHasChanged();
+    }
+
+    /*async Task LoadPublications()
+    {
+        Console.WriteLine("Load publications method");
+        publications = await Http.GetJsonAsync<Publication[]>("publications");
+    }*/
+
+    async Task LoadPublications()
+    {
+        publications = await Http.GetJsonAsync<Publication[]>("publications_2");
+    }
+
+}

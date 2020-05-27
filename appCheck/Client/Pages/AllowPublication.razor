@@ -1,0 +1,53 @@
+﻿@page "/allow"
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject HttpClient Http
+
+<h3>AllowPublication</h3>
+
+@if(publications != null)
+{
+    @foreach (var publication in publications)
+    {
+<li>
+    <!--<input type="checkbox" @if(publication.isAllowed){checked} @onchange="eventArgs => { CheckboxClicked(publication.id, eventArgs.Value); }" />-->
+    <input type="checkbox" @bind-value="publication.isAllowed" ) />
+                   @publication.text
+</li>
+    }
+    <button @onclick="@(e => Save())">Allow publications</button>
+}
+
+@code {
+    Publication[] publications;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPublications();
+        StateHasChanged();
+    }
+
+    async Task LoadPublications()
+    {
+        publications = await Http.GetJsonAsync<Publication[]>("publications_2");
+    }
+
+    void CheckboxClicked(int publicationID, object checkedValue)
+    {
+        var index = Array.FindIndex(publications, row => row.id == publicationID);
+        if ((bool)checkedValue)
+        {
+            publications[index].isAllowed = true;
+        }
+        else
+        {
+            publications[index].isAllowed = false;
+        }
+    }
+
+    async Task Save()
+    {
+        await Http.PostJsonAsync("publication/Allow", publications);
+    }
+}

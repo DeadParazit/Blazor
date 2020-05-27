@@ -1,0 +1,9 @@
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\bin\Debug\netstandard2.1\appCheck.Shared.deps.json
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\bin\Debug\netstandard2.1\appCheck.Shared.dll
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\bin\Debug\netstandard2.1\appCheck.Shared.pdb
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.csprojAssemblyReference.cache
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.AssemblyInfoInputs.cache
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.AssemblyInfo.cs
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.dll
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.pdb
+C:\Users\Улан Ескендиров\source\repos\appCheck\appCheck\Shared\obj\Debug\netstandard2.1\appCheck.Shared.csproj.CoreCompileInputs.cache

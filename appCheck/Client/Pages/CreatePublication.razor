@@ -1,0 +1,80 @@
+﻿@page "/publication"
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>CreatePublication</h3>
+@if (publication_check != null)
+{
+    <h1>@publication_check.text</h1>
+} else { 
+    <h1>publication is null</h1>
+}
+
+<EditForm Model="@publication" OnValidSubmit="@CreateNewPublication">
+    <!-- для проверки тэга [Required] в классе Publication -->
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label>Text:</label>
+        <div>
+            <InputText @bind-Value="@publication.text"/>
+            <ValidationMessage For="@(() => publication.text)"/>
+            <InputSelect class="custom-select" @bind-Value="category_id">
+                @if (categories != null)
+                {
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.id.ToString()" >@category.name</option>
+                    }
+                }
+
+            </InputSelect>
+        </div>
+    </div>
+    <button type="submit">Create Publication</button>
+</EditForm>
+
+
+@code {
+    Publication publication = new Publication();
+    Category[] categories;
+    string category_id;
+
+    protected override async Task OnInitializedAsync()
+    {
+        int id = 1;
+        await LoadPublication(id);
+        await LoadCategories();
+        StateHasChanged();
+    }
+
+    async Task CreateNewPublication()
+    {
+        if (category_id == null)
+        {
+            category_id = "1";
+        }
+        publication.categoryID = int.Parse(category_id);
+        await Http.PostJsonAsync("publication/Create", publication);
+        NavManager.NavigateTo("/");
+        //await Http.SendJsonAsync(HttpMethod.Post, "publication/Create", publication);
+    }
+
+    async Task LoadCategories()
+    {
+        categories = await Http.GetJsonAsync<Category[]>("publication/category");
+    }
+
+    #region check
+    Publication publication_check;
+
+    async Task LoadPublication(int id)
+    {
+        string url = "publication/" + id;
+        publication_check = await Http.GetJsonAsync<Publication>(url);
+    }
+    #endregion
+
+}
